@@ -1,0 +1,62 @@
+Building Zero MQ for Linux (C++)
+
+The OS
+We startout with a basic Ubunto 16.04? install via the iso
+
+Install Depenandcies
+1. install vmtools apt-get install openvm-tools #(if VM box)
+2. validate/install ssh server
+	apt-get install openssh-server
+	# This will start automaticly
+3. Login via ssh
+
+4. ZeroMQ Deps
+    sudo apt-get install libtool pkg-config build-essential autoconf automake libtool-bin
+  sudo apt-get install libzmq-dev uuid-dev #?cmake? ## Lets see on 2nd full round
+  sudo apt-get install git
+
+4. make yourself a workstapce
+	mkdir zero_mq_workspace
+	cd zero_mq_workspace
+
+Install libsodium
+git clone git://github.com/jedisct1/libsodium.git
+cd libsodium
+./autogen.sh
+./configure
+make check
+sudo make install
+sudo ldconfig
+
+Download and Compile
+-=Install zeromq=-
+# latest version as of this post is 4.2.0
+wget https://github.com/zeromq/libzmq/releases/download/v4.2.0/zeromq-4.2.0.tar.gz
+gzip -cd zeromq-4.2.0.tar.gz | tar xfv -
+cd zeromq-4.1.2
+./autogen.sh
+./configure
+make check
+sudo make install
+sudo ldconfig
+
+Download and install the C++ bindings
+git clone https://github.com/zeromq/cppzmq.git
+cd cppzmq
+#Consider keeping the old one around?
+cp zmq.hpp /usr/include/zmq.hpp
+
+Get the Examples
+git clone https://github.com/booksbyus/zguide.git
+cd zguide/examples/C++
+./build all
+run hwserver and hwclient
+# This will send messages from the client to the server "Hello World 1" until 10
+
+Success!!! Profit!
+
+
+
+
+
+
